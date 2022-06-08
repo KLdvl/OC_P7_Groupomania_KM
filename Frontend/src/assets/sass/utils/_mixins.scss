@@ -1,0 +1,24 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin button {
+  color: white;
+  padding: 0 20px;
+  @include flex-center;
+  height: 50px;
+  background: linear-gradient($secondary, $primary);
+  border-radius: 25px;
+  box-shadow: 2px 2px 5px grey;
+  &:hover {
+    background: linear-gradient(lighten($secondary, 5%), lighten($primary, 5%));
+    box-shadow: 2px 2px 5px black;
+    cursor: pointer;
+  }
+}
+@mixin imgback {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

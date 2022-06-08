@@ -1,0 +1,18 @@
+$mobile: 768px !default;
+$tablet: 992px !default;
+
+$mobile-up: "only screen and (min-width: #{$mobile})";
+$mobile-down: "only screen and (max-width: #{$mobile})";
+$tablet-up: "only screen and (min-width: #{$tablet})";
+$tablet-down: "only screen and (max-width: #{$tablet})";
+
+// Affichage tablettes
+
+@media #{$tablet-down} and (min-width: #{$mobile+1}) {
+
+}
+
+// Affichage desktop
+@media #{$tablet-up} {
+
+  }

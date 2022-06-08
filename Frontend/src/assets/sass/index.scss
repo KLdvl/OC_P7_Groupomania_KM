@@ -1,0 +1,31 @@
+// import Sass-files
+
+// Variables & functions
+
+@import "./utils/variables";
+@import "./utils/mixins";
+@import "./utils/animations";
+
+// Base & layout
+
+@import "./base/typography";
+@import "./base/base";
+
+/* importantion du header */
+@import "./layouts/header";
+/* fin du header */
+
+/* importation du container */
+@import "./layouts/main";
+/* fin du container */
+
+/* importation du footer */
+@import "./layouts/footer";
+/* fin du footer */
+
+/*importation de composants */
+@import "./components/cards";
+@import "./components/loader";
+/* fin de composants */
+// Importation du responsive design
+@import "./utils/responsive";

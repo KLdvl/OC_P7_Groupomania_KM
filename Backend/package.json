@@ -1,0 +1,11 @@
+{
+  "name": "groupomania_backend",
+  "version": "1.0.0",
+  "description": "Back end server of Groupomania (company social network)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Mas",
+  "license": "ISC"
+}
