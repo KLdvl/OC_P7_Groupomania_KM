@@ -4,7 +4,9 @@ const Post = require("../../models/Post");
 // Method for creating a new post
 exports.createPost = async (req, res) => {
   try {
-    const postObject = await JSON.parse(req.body.post);
+
+    const postObject = {...req.body,
+    date: Date.now()};
     delete postObject._id;
 
     await Post.create({

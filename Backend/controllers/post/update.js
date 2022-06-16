@@ -8,7 +8,7 @@ const fs = require("fs");
 exports.updatePost = async (req, res) => {
   try {
 // destructuring req.body
-    const {name, manufacturer, description, mainPepper, heat, userId} = await req.body;
+    const {title, content, userId} = await req.body;
 
      // Check if file is updated and delete old one if existing
     if(req.file) {
@@ -27,11 +27,8 @@ exports.updatePost = async (req, res) => {
         }`,
       }
       : {
-        name: name,
-        manufacturer: manufacturer,
-        description: description,
-        mainPepper: mainPepper,
-        heat: heat,
+        title: title,
+        content: content,
         userId: userId,
       };
 
@@ -39,10 +36,11 @@ exports.updatePost = async (req, res) => {
     await Post.findByIdAndUpdate({_id: req.params.id}, {
       ...postObject,
       _id: req.params.id,
+      date: Date.now()
     })
     res.status(200).json({message: "Post modifié !"})
 
 } catch(err) {
-  res.status(400).json({error})
+  res.status(400).json({error: err})
 }
 }

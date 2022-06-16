@@ -26,28 +26,14 @@ async function fileFilter (req, file, cb) {
     // Regex to test fields for valid characters
     const fieldsRegex = /^[a-zA-Z0-9 _.,!()&]+$/;
 // Creating const from req.body
-    const {name, manufacturer, description, mainPepper } = await JSON.parse(req.body.post)
+    const {title, content } = await req.body
 
-    if(fieldsRegex.test(name) &&
-      fieldsRegex.test(manufacturer) &&
-      fieldsRegex.test(description) &&
-      fieldsRegex.test(mainPepper)) {
+    if(fieldsRegex.test(title) &&
+      fieldsRegex.test(content)) {
       return cb(null, true)
     } else {
       return cb(new Error("Certains champs contiennent des caractères invalides"))
     }
-  } catch(err) {
-    return cb(new Error(err))
-  }
-}
-
-async function imageFilter (req, file, cb) {
-  try {
-    console.log("==> req in imageFilter")
-    console.log(req)
-    console.log("==> file in imageFilter")
-    console.log(file)
-
   } catch(err) {
     return cb(new Error(err))
   }

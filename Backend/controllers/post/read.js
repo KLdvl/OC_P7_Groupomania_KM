@@ -4,7 +4,7 @@ const Post = require("../../models/Post");
 // Method for getting all the sauces
 exports.readPost = async (req, res) => {
   try {
-    const post = await Post.find({})
+    const post = await Post.find({}).sort({date: -1}).exec()
     res.status(200).json(post);
   } catch(err) {
     res.status(500).json({error : err})
