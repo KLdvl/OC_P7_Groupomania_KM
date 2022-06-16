@@ -4,29 +4,22 @@ const mongoose = require("mongoose");
 // Schema for a post using mongoose
 const postSchema = mongoose.Schema({
   userId: { type: String, required: true },
-  name: {
+  title: {
     type: String,
-    minlength: [2, "Le nom renseigné est trop court"],
-    maxlength: [30, "Le nom renseigné est trop long"],
-    required: [true, "Veuillez renseigner un nom"] },
-  manufacturer: {
+    minlength: [3, "Le titre du post renseigné est trop court"],
+    maxlength: [30, "Le titre du post renseigné est trop long"],
+    required: [true, "Veuillez renseigner un titre"] },
+  content: {
     type: String,
-    minlength: [2, "Le nom de la marque est trop court"],
-    maxlength: [30, "Le nom de la marque est trop long"],
+    minlength: [2, "Le contenu du post est trop court"],
+    maxlength: [2500, "Le post ne doit pas excéder 2000 caractères"],
     required: [true, "Veuillez renseigner une marque"] },
-  description: {
-    type: String,
-    maxlength: [250, "La description est trop longue"],
-    required: [true, "Veuillez renseigner une description"] },
-  mainPepper: { type: String,
-    maxlength: [50, "Le nom de l'ingrédient est trop long"],
-    required: [true, "Veuillez renseigner un ingrédient"] },
   imageUrl: {
     type: String,
     required: [true, "Veuillez ajouter une image"] },
-  heat: {
-    type: Number,
-    required: [true, "Veuillez sélectionner une valeur"] },
+  date: {
+    type: Date,
+    required: true},
   likes: { type: Number, default: 0 },
   dislikes: { type: Number, default: 0 },
   usersLiked: { type: Array, default: [] },
