@@ -8,7 +8,7 @@ const fs = require("fs");
 exports.updatePost = async (req, res) => {
   try {
 // destructuring req.body
-    const {title, content, userId} = await req.body;
+    const {title, content, userId} = req.body;
 
      // Check if file is updated and delete old one if existing
     if(req.file) {
@@ -19,7 +19,7 @@ exports.updatePost = async (req, res) => {
     }
 
     // Populate new object with new image or new datas
-    const postObject = await req.file
+    const postObject = req.file
       ? {
         ...req.body,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${

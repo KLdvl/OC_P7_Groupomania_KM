@@ -26,7 +26,7 @@ async function fileFilter (req, file, cb) {
     // Regex to test fields for valid characters
     const fieldsRegex = /^[a-zA-Z0-9 _.,!()&]+$/;
 // Creating const from req.body
-    const {title, content } = await req.body
+    const {title, content } = req.body
 
     if(fieldsRegex.test(title) &&
       fieldsRegex.test(content)) {

@@ -1,7 +1,6 @@
 // External requires
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const cryptojs = require("crypto-js");
 
 // Model used
 const User = require("../../models/User");
@@ -9,14 +8,10 @@ const User = require("../../models/User");
 // Method for loging in with authentification confirmed via token
 exports.logIn = async (req, res) => {
   try {
-    const {email, password} = await req.body;
+    const {email, password} = req.body;
 
-    //Crypting email
-    const emailCrypted = await cryptojs
-      .HmacSHA256(email, process.env.CRYPTOJS_SECRET_KEY)
-      .toString();
 
-    await User.findOne({email: emailCrypted})
+    await User.findOne({email: email})
       .then((user) => {
         if (!user) {
           return res.status(401).json({error: "Utilisateur non trouvé"});
