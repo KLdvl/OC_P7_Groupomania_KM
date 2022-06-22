@@ -1,5 +1,6 @@
 // Model used
 const Post = require("../../models/Post");
+const User = require("../../models/User");
 
 // External requires
 const fs = require("fs");
@@ -7,9 +8,14 @@ const fs = require("fs");
 // Method for modifying an existing post
 exports.updatePost = async (req, res) => {
   try {
+
+    const user = await User.findById({_id: req.auth.userId});
+    const post = await Post.findById({_id: req.params.id})
+
 // destructuring req.body
     const {title, content, userId} = req.body;
-    if(userId !== req.auth.userId) {
+
+    if(userId !== post.userId && user.role !== "Admin") {
       return res.status(401).json({message: "requête non autorisée"})
     }
 

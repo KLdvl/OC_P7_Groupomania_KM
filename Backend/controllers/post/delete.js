@@ -8,8 +8,8 @@ const fs = require("fs");
 // Method for deleting a post
 exports.deletePost = async (req, res) => {
   try {
-    const user = await User.findById({_id: req.auth.userId})
-    console.log(user)
+    const user = await User.findById({_id: req.auth.userId});
+
     const post = await Post.findById({_id: req.params.id}).exec();
     const {userId, imageUrl} = post;
     if (!post) {
