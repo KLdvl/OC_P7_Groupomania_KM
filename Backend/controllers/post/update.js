@@ -9,6 +9,9 @@ exports.updatePost = async (req, res) => {
   try {
 // destructuring req.body
     const {title, content, userId} = req.body;
+    if(userId !== req.auth.userId) {
+      return res.status(401).json({message: "requête non autorisée"})
+    }
 
      // Check if file is updated and delete old one if existing
     if(req.file) {

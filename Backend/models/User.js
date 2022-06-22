@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
   },
   password: { type: String,
     required: [true, "Veuillez renseigner un mot de passe"] },
+  role: { type: String, required: true, default: "User"}
 });
 
 // Verifying if unique with plugin

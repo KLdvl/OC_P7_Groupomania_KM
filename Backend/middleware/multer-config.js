@@ -39,8 +39,9 @@ async function fileFilter (req, file, cb) {
   }
 }
 
+
 const upload = multer({storage: storage,
-fileFilter : (req, file, cb) => { fileFilter(req, file,cb)}
+fileFilter : (req, file, cb) => {fileFilter(req, file,cb)}
 })
 
 module.exports = upload.single('image')

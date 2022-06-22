@@ -1,7 +1,7 @@
 // External requires
 const express = require("express");
 const path = require("path");
-const multer = require("multer");
+const auth = require("./middleware/authentification");
 
 // Security features
 const mongoSanitize = require("express-mongo-sanitize");
@@ -72,7 +72,7 @@ app.use(limiter);
 // Use of routes
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use("/api/auth", userRoutes);
-app.use("/api/post", postRoutes);
+app.use("/api/post", auth, postRoutes);
 
 // Exporting app
 module.exports = app;
