@@ -1,10 +1,18 @@
 <template>
   <div class="login">
-    <h1 class="text-center text-tertiary">Enter E-mail and password to log in</h1>
+    <h1 class="text-center text-tertiary">Please enter E-mail and password to log in</h1>
     <v-form @submit="onSubmit" class="add-form">
       <v-container>
         <EmailField />
         <PasswordField />
+        <v-row>
+          <v-col cols="12" sm="6" md="3">
+            <v-btn append>
+              Log In
+              <v-icon icon="mdi-login"></v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-container>
     </v-form>
   </div>

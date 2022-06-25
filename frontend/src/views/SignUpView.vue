@@ -7,9 +7,8 @@
         <PasswordField />
         <v-row>
           <v-col cols="12" sm="6" md="3">
-            <v-btn
-                    append
-            >Sign Up
+            <v-btn append>
+              Sign Up
               <v-icon icon="mdi-send"></v-icon>
               </v-btn>
           </v-col>

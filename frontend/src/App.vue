@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <v-main>
-      <v-app-bar>
-        <nav>
+    <v-main class="bg-secondary">
+      <v-app-bar class="bg-tertiary">
+        <nav class="text-secondary">
           <router-link to="/">Home</router-link> |
           <router-link to="/auth/sign_up">Sign-up</router-link> |
           <router-link to="/auth/log_in">Log-in</router-link>
