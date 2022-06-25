@@ -1,12 +1,11 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: () => require("../views/AllPosts.vue"),
   },
   {
     path: "/auth/sign_up",

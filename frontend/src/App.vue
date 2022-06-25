@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main class="bg-secondary">
+    <v-main>
       <v-app-bar class="bg-tertiary">
         <nav class="text-secondary">
           <router-link to="/">Home</router-link> |
