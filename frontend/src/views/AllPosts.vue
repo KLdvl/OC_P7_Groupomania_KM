@@ -5,14 +5,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import PostCard from "../components/PostCard";
-    export default {
-        name: "AllPosts",
-        components: {PostCard}
-    }
 </script>
 
-<style scoped>
-
-</style>

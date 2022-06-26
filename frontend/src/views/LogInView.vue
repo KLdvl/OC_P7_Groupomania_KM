@@ -1,13 +1,37 @@
 <template>
   <div class="login">
     <h1 class="text-center text-tertiary">Please enter E-mail and password to log in</h1>
-    <v-form @submit="onSubmit" class="add-form">
+    <v-form @submit.prevent="handleLogin" class="add-form">
       <v-container>
-        <EmailField />
-        <PasswordField />
         <v-row>
           <v-col cols="12" sm="6" md="3">
-            <v-btn append>
+            <v-text-field
+                    color="primary"
+                    v-model="email"
+                    type="email"
+                    label="E-mail"
+                    variant="solo"
+                    placeholder="Enter your e-mail address"
+            >
+            </v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="6" md="3">
+            <v-text-field
+                    color="primary"
+                    v-model="password"
+                    type="password"
+                    label="Password"
+                    variant="solo"
+                    placeholder="Enter your password"
+            >
+            </v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="6" md="3">
+            <v-btn type="submit" append>
               Log In
               <v-icon icon="mdi-login"></v-icon>
             </v-btn>
@@ -16,15 +40,53 @@
       </v-container>
     </v-form>
   </div>
+
 </template>
 
 <script>
-import EmailField from "../components/EmailField";
-import PasswordField from "../components/PasswordField";
-export default {
-  name: "LogIn.vue",
-  components: {PasswordField, EmailField},
-};
+  export default {
+    name: "LogInView",
+    data() {
+      return {
+        email: "",
+        password: ""
+      }
+    },
+    methods : {
+      handleLogin() {
+        // Check if email && password are filled
+        if(!this.email || !this.password) return
+
+        // Create user object
+        const user = {
+          email: this.email,
+          password: this.password
+        }
+        const serverUrl = "http://localhost:8080/api/auth/login"
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json"},
+          mode: "cors",
+          body: JSON.stringify(user)
+        };
+        let self = this;
+        fetch(serverUrl, requestOptions)
+                .then(function(res){
+                  if(res.status !== 200) {
+                    throw new Error(res.status)
+                  }
+                  return res.json();
+        })
+                .then(function(data){
+                  localStorage.setItem('user', JSON.stringify(data))
+                  self.$router.push({name: "home"})
+                })
+                .catch(function(err) {
+                  console.log(err)
+                })
+
+      }
+    }
+  }
 </script>
 
-<style scoped></style>

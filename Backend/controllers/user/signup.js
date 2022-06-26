@@ -1,5 +1,6 @@
 // External requires
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Model used
 const User = require("../../models/User");
@@ -24,7 +25,15 @@ exports.signUp = async (req, res) => {
           password: hash,
             role: role
         });
-        res.status(201).json({message: "Utilisateur créé"})
+        await User.findOne( {email: email})
+            .then((user) => {
+                res.status(201).json({
+                    userId: user._id,
+                    token: jwt.sign({userId: user._id}, process.env.JWT_TOKEN, {
+                        expiresIn: "24h",
+                    }),
+                });
+          })
       })
   } catch (err) {
     res.status(500).json({error: err})

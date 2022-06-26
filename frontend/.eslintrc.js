@@ -1,7 +1,8 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
+    'vue/setup-compiler-macros': true
   },
   'extends': [
     'plugin:vue/vue3-essential',
@@ -13,6 +14,13 @@ module.exports = {
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    "@typescript-eslint/no-this-alias": [
+      "error",
+      {
+        "allowDestructuring": false, // Disallow `const { props, state } = this`; true by default
+        "allowedNames": ["self"] // Allow `const self = this`; `[]` by default
+      }
+    ]
   }
 }
