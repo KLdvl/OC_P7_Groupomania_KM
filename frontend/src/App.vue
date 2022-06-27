@@ -18,11 +18,17 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'App',
-
-  data () {
-    return {
-      //
-    }
-  },
 })
 </script>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+  a:visited {
+    color: inherit;
+  }
+  a:hover {
+    color: white;
+  }
+</style>
