@@ -12,6 +12,11 @@ const routes = [
     component: () => require("../views/posts/SinglePost.vue")
   },
   {
+    path: "/new_post",
+    name: "createpost",
+    component: () => require("../views/posts/CreatePost.vue")
+  },
+  {
     path: "/auth/sign_up",
     name: "signup",
     component: () => require("../views/auth/SignUpView.vue"),
