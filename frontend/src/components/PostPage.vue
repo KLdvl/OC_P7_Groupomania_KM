@@ -8,7 +8,7 @@
     <v-container>
         <v-row justify="space-around">
             <v-btn tile color="success"><v-icon left>mdi-pencil</v-icon>EDIT</v-btn>
-            <v-btn tile color="error">DELETE</v-btn>
+            <v-btn id="del" tile color="error">DELETE</v-btn>
             <router-link :to="{name: 'home'}">
             <v-btn tile >GO BACK</v-btn>
             </router-link>
@@ -17,6 +17,9 @@
 </template>
 
 <script>
+    const serverUrl = "http://localhost:8080/api/post/";
+    const parsedStorage = JSON.parse(localStorage.user)
+    const token = parsedStorage.token
     export default {
         name: "PostPage",
         data() {
@@ -24,10 +27,32 @@
                 post: []
             }
         },
+        methods: {
+            async goBack() {
+                await this.router.push({name: 'home'})
+            },
+            async onDelete() {
+                const id = this.$route.params.id
+                await fetch(`${serverUrl}${id}`, {
+                    method: 'DELETE',
+                    mode: 'cors',
+                    headers: {
+                        Authorization: `token ${token}`
+                    }
+                })
+                .then(res => {
+                    if(!res.ok) {
+                        const error = new Error(res.statusText);
+                        error.json = res.json();
+                        throw error;
+                    }
+                })
+                .catch(err => console.log(err.message))
+                await this.goBack();
+
+            }
+        },
         mounted() {
-            const serverUrl = "http://localhost:8080/api/post/";
-            const parsedStorage = JSON.parse(localStorage.user)
-            const token = parsedStorage.token
             const id = this.$route.params.id
             const requestOptions = {
                 method: 'GET',
@@ -47,6 +72,7 @@
                 })
                 .then(data => this.post = data)
                 .catch(err => console.log(err.message))
+            document.getElementById('del').addEventListener('click', this.onDelete)
         }
     }
 </script>

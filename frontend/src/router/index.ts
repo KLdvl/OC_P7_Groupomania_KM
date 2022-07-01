@@ -4,22 +4,22 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: () => require("../views/AllPosts.vue"),
+    component: () => require("../views/posts/AllPosts.vue"),
   },
   {
     path: "/:id",
     name: "post",
-    component: () => require("../views/SinglePost.vue")
+    component: () => require("../views/posts/SinglePost.vue")
   },
   {
     path: "/auth/sign_up",
     name: "signup",
-    component: () => require("../views/SignUpView.vue"),
+    component: () => require("../views/auth/SignUpView.vue"),
   },
   {
     path: "/auth/log_in",
     name: "login",
-    component: () => require("../views/LogInView.vue"),
+    component: () => require("../views/auth/LogInView.vue"),
   },
 ];
 
