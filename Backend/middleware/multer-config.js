@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 async function fileFilter (req, file, cb) {
   try {
     // Regex to test fields for valid characters
-    const fieldsRegex = /^[a-zA-Z0-9 _.,!()&]+$/;
+    const fieldsRegex = /^[a-zA-Z0-9 _.,éèêàùâïëöü'!()&\n\r]+$/;
 // Creating const from req.body
     const {title, content } = req.body
 

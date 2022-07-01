@@ -64,9 +64,9 @@
         },
         mounted() {
                     const serverUrl = "http://localhost:8080/api/post/";
-                    // if(!localStorage.user) {
-                    //     return
-                    // }
+                    if(!localStorage.user) {
+                        return this.$router.push({name: 'login'})
+                    }
                     const parsedStorage = JSON.parse(localStorage.user)
                     const token = parsedStorage.token
                     const requestOptions = {
