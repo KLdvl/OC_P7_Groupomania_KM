@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <h1 class="text-center">New Post</h1>
-        <v-form ref="form">
+        <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
                     v-model="title"
                     :rules="titleRules"
@@ -14,18 +14,33 @@
                     color="primary"
             ></v-text-field>
             <v-textarea
+                    v-model="content"
+                    :rules="contentRules"
                     solo
                     name="input-7-4"
-                    label="Solo textarea"
+                    label="Content of Post"
                     auto-grow
                     color="primary"
             ></v-textarea>
             <v-file-input
-                    chips
+            chips
             accept="image/*"
             label="File input"
+            prepend-icon="mdi-camera"
+            color="primary"
             >
             </v-file-input>
+            <v-row>
+                <v-btn :disabled="!valid"
+                       color="success"
+                       @click="validate">Submit post !
+                </v-btn>
+                <v-btn color="error"
+                       @click="reset"
+                >
+                    Reset form
+                </v-btn>
+            </v-row>
         </v-form>
     </v-container>
 </template>
@@ -36,7 +51,18 @@
         data() {
             return {
                 title: "",
-                titleRules: [v => v.length <= 30 || 'Max 30 characters']
+                titleRules: [v => v.length <= 30 || 'Max 30 characters'],
+                content: "",
+                contentRules: [v => v.length <= 3000 || 'Max 3000 characters'],
+                valid: true,
+            }
+        },
+        methods: {
+            validate(){
+                this.$refs.form.validate()
+            },
+            reset(){
+                this.$refs.form.reset()
             }
         }
     }
