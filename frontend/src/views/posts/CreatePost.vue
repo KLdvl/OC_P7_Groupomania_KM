@@ -40,6 +40,9 @@
                 >
                     Reset form
                 </v-btn>
+                <router-link :to="{name: 'home'}">
+                    <v-btn tile >GO BACK</v-btn>
+                </router-link>
             </v-row>
         </v-form>
     </v-container>

@@ -2,11 +2,7 @@
     <PostPage />
 </template>
 
-<script>
-    import PostPage from "../../components/PostPage";
-    export default {
-        name: "SinglePost",
-        components: {PostPage},
-    }
+<script setup lang="ts">
+    import PostPage from "../../components/PostPage.vue";
 </script>
 

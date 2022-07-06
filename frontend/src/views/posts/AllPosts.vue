@@ -14,12 +14,8 @@
     </v-container>
 </template>
 
-<script>
-    import PostCard from "../../components/PostCard";
+<script setup lang="ts">
+    import PostCard from "../../components/PostCard.vue";
 
-    export default {
-        name: "AllPosts",
-        components: {PostCard},
-    }
 </script>
 

@@ -42,48 +42,43 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: "SignUpView",
-    data() {
-      return {
-        email: "",
-        password: ""
-      }
-    },
-    methods: {
-      handleSignup() {
-        if(!this.email || !this.password) return
+<script setup lang="ts">
+  import {ref} from "vue"
+  import {useRouter} from "vue-router"
+  const router = useRouter()
 
-        const user = {
-          email: this.email,
-          password: this.password
-        }
-        const serverUrl = "http://localhost:8080/api/auth/signup"
-        const requestOptions = {
-          method: "POST",
-          headers: { "Content-Type": "application/json"},
-          mode: "cors",
-          body: JSON.stringify(user)
-        };
-        let self = this;
-        fetch(serverUrl, requestOptions)
-        .then(function(res){
-          if(res.status !== 201){
-            throw new Error(res.status)
-          }
-          return res.json();
-        })
-        .then(function(data){
-          localStorage.setItem('user', JSON.stringify(data))
-          self.$router.push({name: "home"})
-        })
-        .catch(function(err){
-          console.log(err)
-        })
+  const email = ref("")
+  const password = ref("")
 
-      }
+  function handleSignup() {
+    // Check if email && password field are filled
+    if(!email.value || !password.value) return
+
+    const user = {
+      email: email.value,
+      password: password.value
     }
+    const serverUrl = "http://localhost:8080/api/auth/signup"
+    const requestOptions: any = {
+      method: "POST",
+      headers: { "Content-Type": "application/json"},
+      mode: "cors",
+      body: JSON.stringify(user)
+    };
+
+    fetch(serverUrl, requestOptions)
+            .then(function(res){
+              if(res.status !== 201) {
+                throw new Error(res.status)
+              }
+              return res.json();
+            })
+            .then(function(data){
+              localStorage.setItem('user', JSON.stringify(data))
+              router.push({name: "home"})
+            })
+            .catch(function(err) {
+              console.log(err)
+            })
   }
 </script>
-
