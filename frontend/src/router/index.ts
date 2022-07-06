@@ -33,4 +33,10 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to, from) => {
+  if(!localStorage.user && to.name !== 'login' && to.name !== 'signup') {
+    return {name: 'login'}
+  }
+})
+
 export default router;

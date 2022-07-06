@@ -4,6 +4,7 @@
 /Backend/node_modules
 node_modules
 /dist
+/front_new
 
 
 # local env files

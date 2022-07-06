@@ -8,7 +8,7 @@
     <v-container>
         <v-row justify="space-around">
             <v-btn tile color="success"><v-icon left>mdi-pencil</v-icon>EDIT</v-btn>
-            <v-btn id="del" tile color="error">DELETE</v-btn>
+            <v-btn id="del" @click.stop="onDelete" tile color="error">DELETE</v-btn>
             <router-link :to="{name: 'home'}">
             <v-btn tile >GO BACK</v-btn>
             </router-link>
@@ -16,63 +16,47 @@
             </v-container>
 </template>
 
-<script>
-    const serverUrl = "http://localhost:8080/api/post/";
-    const parsedStorage = JSON.parse(localStorage.user)
-    const token = parsedStorage.token
-    export default {
-        name: "PostPage",
-        data() {
-            return {
-                post: []
-            }
-        },
-        methods: {
-            async goBack() {
-                await this.router.push({name: 'home'})
-            },
-            async onDelete() {
-                const id = this.$route.params.id
-                await fetch(`${serverUrl}${id}`, {
-                    method: 'DELETE',
-                    mode: 'cors',
-                    headers: {
-                        Authorization: `token ${token}`
-                    }
-                })
-                .then(res => {
-                    if(!res.ok) {
-                        const error = new Error(res.statusText);
-                        error.json = res.json();
-                        throw error;
-                    }
-                })
-                .catch(err => console.log(err.message))
-                await this.goBack();
+<script setup lang="ts">
+    import {onMounted, ref} from "vue"
+    import {useRoute, useRouter } from "vue-router"
+    const route = useRoute()
+    const router = useRouter()
 
-            }
-        },
-        mounted() {
-            const id = this.$route.params.id
-            const requestOptions = {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    Authorization: `token ${token}`
-                }
-            }
-            fetch(`${serverUrl}${id}`, requestOptions)
-                .then(res => {
-                    if(!res.ok) {
-                        const error = new Error(res.statusText);
-                        error.json = res.json();
-                        throw error;
-                    }
-                    return res.json();
-                })
-                .then(data => this.post = data)
-                .catch(err => console.log(err.message))
-            document.getElementById('del').addEventListener('click', this.onDelete)
+    const post = ref([])
+
+    const serverUrl = "http://localhost:8080/api/post/"
+    const parsedStorage = JSON.parse(localStorage.user)
+    const id = route.params.id
+    const requestOptions : any = {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            Authorization: `token ${parsedStorage.token}`
         }
     }
+
+    function onDelete() {
+        fetch(`${serverUrl}${id}`, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                Authorization: `token ${parsedStorage.token}`
+            }
+        })
+        .then(res => res.ok)
+        .catch(err => console.log(err.message))
+        router.push({name: 'home'})
+    }
+
+    onMounted(()=> {
+        fetch(`${serverUrl}${id}`, requestOptions)
+        .then(res => {
+            if(res.ok) {
+                return res.json()
+            }
+        })
+        .then(data => post.value = data)
+        .catch(err => console.log(err.message))
+    })
+
 </script>

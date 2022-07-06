@@ -32,7 +32,7 @@
 
             <v-btn
                     icon
-                    @click="selectedIndex = index"
+                    @click="showContent(index)"
             >
                 <v-icon>{{ index === selectedIndex ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
             </v-btn>
@@ -51,42 +51,42 @@
     </v-card>
 </template>
 
-<script>
-    export default {
-        name: "PostCard",
-        props: {},
-        data() {
-            return {
-                show: false,
-                selectedIndex: null,
-                posts: []
-            }
-        },
-        mounted() {
-                    const serverUrl = "http://localhost:8080/api/post/";
-                    if(!localStorage.user) {
-                        return this.$router.push({name: 'login'})
-                    }
-                    const parsedStorage = JSON.parse(localStorage.user)
-                    const token = parsedStorage.token
-                    const requestOptions = {
-                        method: 'GET',
-                        mode: 'cors',
-                        headers: {
-                            Authorization: `token ${token}`
-                        }
-                    }
-                    fetch(serverUrl, requestOptions)
-            .then(res => {
-                if(!res.ok) {
-                    const error = new Error(res.statusText);
-                    error.json = res.json();
-                    throw error;
-                }
-                return res.json();
-            })
-            .then(data => this.posts = data)
-            .catch(err => console.log(err.message))
+<script setup lang="ts">
+    import {onMounted, ref} from "vue"
+
+    const posts = ref([])
+    const show = ref(false)
+    const selectedIndex= ref(null)
+
+    function showContent(index: any) {
+        if(selectedIndex.value === null || selectedIndex.value !== index) {
+            selectedIndex.value = index
+            show.value = true
+        } else {
+            selectedIndex.value = null
+            show.value = false
         }
     }
-</script>
+
+    const serverUrl = "http://localhost:8080/api/post/"
+    const parsedStorage = JSON.parse(localStorage.user)
+    const requestOptions : any = {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            Authorization: `token ${parsedStorage.token}`
+        }
+    }
+
+    onMounted(() => {
+        fetch(serverUrl, requestOptions)
+            .then(res => {
+                if(res.ok) {
+                    return res.json()
+                }
+            })
+            .then(data => posts.value = data)
+            .catch(err => console.log(err.message))
+    })
+
+    </script>
