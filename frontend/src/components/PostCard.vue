@@ -88,5 +88,4 @@
             .then(data => posts.value = data)
             .catch(err => console.log(err.message))
     })
-
     </script>

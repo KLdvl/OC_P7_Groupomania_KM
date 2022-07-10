@@ -52,9 +52,11 @@
                 Authorization: `token ${parsedStorage.token}`
             }
         })
-        .then(res => res.ok)
+        .then(res => {
+            res.ok
+            router.push({name: 'home'})
+        })
         .catch(err => console.log(err.message))
-        router.push({name: 'home'})
     }
 
     onMounted(()=> {
