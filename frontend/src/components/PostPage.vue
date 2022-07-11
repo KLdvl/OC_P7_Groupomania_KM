@@ -104,7 +104,14 @@
             },
             body: JSON.stringify(likeValue)
         })
-        .then(res => res.json())
+        .then(res => {
+            res.json()
+            if(likeValue.like === 1) {
+                post.value.likes++
+            } else {
+                post.value.likes--
+            }
+        })
         .catch(err => console.log(err.message))
     }
 

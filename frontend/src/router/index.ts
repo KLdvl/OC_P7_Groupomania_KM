@@ -12,8 +12,8 @@ const routes = [
     component: () => require("../views/posts/SinglePost.vue")
   },
   {
-    path: "/new_post",
-    name: "createpost",
+    path: "/newPost",
+    name: "postCreation",
     component: () => require("../views/posts/CreatePost.vue")
   },
   {
