@@ -98,7 +98,6 @@
         }
         formData.append('userId', values.userId)
 
-        console.log(values)
         fetch(`${serverUrl}${id}`, {
             method: 'PUT',
             mode: 'cors',
@@ -133,6 +132,5 @@
     const { value: image, errorMessage: imageError } = useField('image',
         yup.mixed()
     )
-
 </script>
 
