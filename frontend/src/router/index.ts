@@ -17,6 +17,11 @@ const routes = [
     component: () => require("../views/posts/CreatePost.vue")
   },
   {
+    path: "/:id",
+    name: "postUpdate",
+    component: () => require("../views/posts/UpdatePost.vue")
+  },
+  {
     path: "/auth/sign_up",
     name: "signup",
     component: () => require("../views/auth/SignUpView.vue"),

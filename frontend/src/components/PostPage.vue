@@ -15,8 +15,10 @@
     </v-container>
     <v-container>
         <v-row justify="space-around">
-            <v-btn tile color="success"><v-icon left>mdi-pencil</v-icon>EDIT</v-btn>
-            <v-btn id="del" @click.stop="onDelete" tile color="error">DELETE</v-btn>
+            <router-link :to="{name: 'postUpdate'}">
+                <v-btn tile color="success"><v-icon left>mdi-pencil</v-icon>EDIT</v-btn>
+            </router-link>
+            <v-btn @click.stop="onDelete" tile color="error">DELETE</v-btn>
             <router-link :to="{name: 'home'}">
             <v-btn tile >GO BACK</v-btn>
             </router-link>
