@@ -23,12 +23,12 @@ const routes = [
   },
   {
     path: "/auth/sign_up",
-    name: "signup",
+    name: "signUp",
     component: () => require("../views/auth/SignUpView.vue"),
   },
   {
     path: "/auth/log_in",
-    name: "login",
+    name: "logIn",
     component: () => require("../views/auth/LogInView.vue"),
   },
 ];
@@ -39,8 +39,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
-  if(!localStorage.user && to.name !== 'login' && to.name !== 'signup') {
-    return {name: 'login'}
+  if(!localStorage.user && to.name !== 'logIn' && to.name !== 'signUp') {
+    return {name: 'logIn'}
   }
 })
 
