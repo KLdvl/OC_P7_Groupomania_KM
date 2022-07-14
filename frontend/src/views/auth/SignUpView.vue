@@ -54,7 +54,7 @@
   import { useField, useForm } from "vee-validate";
   import * as yup from 'yup'
 
-  // Creating router variables
+  // Creating environment variables
   const router = useRouter()
   const store = useStore()
   const { handleSubmit } = useForm();
