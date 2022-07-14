@@ -26,6 +26,7 @@ exports.logIn = async (req, res) => {
               .status(200)
               .json({
                 userId: user._id,
+                  role: user.role,
                 token: jwt.sign({userId: user._id}, process.env.JWT_TOKEN, {
                   expiresIn: "24h",
                 }),

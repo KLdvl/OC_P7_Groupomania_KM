@@ -79,7 +79,6 @@
             }
             })
             .then(data => {
-              console.log(data)
               localStorage.setItem('user', JSON.stringify(data))
               router.push({name: 'home'})
             })

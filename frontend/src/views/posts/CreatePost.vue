@@ -77,7 +77,6 @@
         formData.append('image', values.image[0])
         formData.append('userId', values.userId)
 
-        console.log(values)
         fetch(serverUrl, {
             method: 'POST',
             mode: 'cors',
