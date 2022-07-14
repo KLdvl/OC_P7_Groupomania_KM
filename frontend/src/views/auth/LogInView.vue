@@ -45,17 +45,18 @@
       </v-container>
     </v-form>
   </div>
-
 </template>
 
 <script setup lang="ts">
   // Importing required external resources
+  import { useStore } from 'vuex'
   import { useRouter } from "vue-router"
   import { useField, useForm } from "vee-validate";
   import * as yup from 'yup'
 
   // Creating router variables
   const router = useRouter()
+  const store = useStore();
   const { handleSubmit } = useForm();
 
   // Creating function for loging in
@@ -71,6 +72,9 @@
       headers: { "Content-Type": "application/json"},
       body: JSON.stringify(values)
     };
+    const login = () => {
+      store.dispatch('login')
+    }
 
     fetch(serverUrl, requestOptions)
             .then(res => {
@@ -80,6 +84,7 @@
             })
             .then(data => {
               localStorage.setItem('user', JSON.stringify(data))
+              login()
               router.push({name: 'home'})
             })
             .catch(err => console.log(err.message))
