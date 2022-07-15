@@ -44,7 +44,7 @@
     const id = route.params.id
     const serverUrl = `http://localhost:8080/api/post/${id}`
 
-    const callFetch = (url: any, options: any, cb: any) => {
+    const callFetch = (url: string, options: { method: string, mode: 'cors', headers: { Authorization: string } }, cb: void) => {
         return fetch(url, options)
             .then(res => {
                 if (res.ok) {
@@ -55,7 +55,7 @@
             .catch(err => console.log(err.message))
     }
 
-    const getOptions = {
+    const getOptions: { method: string, mode: 'cors', headers: { Authorization: string } } = {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -82,7 +82,7 @@
         getData();
     })
 
-    const deleteOptions = {
+    const deleteOptions: { method: string, mode: 'cors', headers: { Authorization: string } } = {
         method: 'DELETE',
         mode: 'cors',
         headers: {
@@ -117,7 +117,7 @@
 
         likeObject();
 
-        const likeOptions = {
+        const likeOptions: { method: string, mode: 'cors', headers: { "Content-Type": string, Authorization: string }, body: string } = {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -153,7 +153,7 @@
 
         dislikeObject();
 
-        const dislikeOptions = {
+        const dislikeOptions: { method: string, mode: 'cors', headers: { "Content-Type": string, Authorization: string }, body: string } = {
             method: 'POST',
             mode: 'cors',
             headers: {

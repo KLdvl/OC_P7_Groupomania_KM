@@ -66,7 +66,7 @@
         formData.append('password', values.password)
 
         const serverUrl = "http://localhost:8080/api/auth/login"
-        const requestOptions: any = {
+        const requestOptions: {method: string, mode: 'cors', headers: {"Content-Type": string}, body: string} = {
             method: "POST",
             mode: "cors",
             headers: {"Content-Type": "application/json"},

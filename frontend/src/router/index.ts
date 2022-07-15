@@ -38,7 +38,7 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
     if (!localStorage.user && to.name !== 'logIn' && to.name !== 'signUp') {
         return {name: 'logIn'}
     }
