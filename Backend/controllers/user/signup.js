@@ -17,24 +17,22 @@ exports.signUp = async (req, res) => {
         }
     })
 
-    await bcrypt
-      .hash(password, 10)
-      .then(async (hash) => {
-        await User.create({
-          email: email,
+      const hash = await bcrypt.hash(password, 10)
+      const user = await User.create({
+          email,
           password: hash,
-            role: role
-        });
-        await User.findOne( {email: email})
-            .then((user) => {
-                res.status(201).json({
-                    userId: user._id,
-                    token: jwt.sign({userId: user._id}, process.env.JWT_TOKEN, {
-                        expiresIn: "24h",
-                    }),
-                });
-          })
+          role
       })
+
+      await user.save()
+          .then(() => res.status(201).json({
+              userId: user._id,
+              token: jwt.sign({userId: user._id}, process.env.JWT_TOKEN, {
+                                        expiresIn: "24h",
+              }),
+              role: user.role
+          }))
+
   } catch (err) {
     res.status(500).json({error: err})
   }

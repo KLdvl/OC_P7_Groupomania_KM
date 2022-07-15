@@ -1,9 +1,9 @@
 <template>
     <v-container>
-    <h1 class="text-center">{{post.title}}</h1>
-    <v-img max-height="200" max-width="250" :src="post.imageUrl"></v-img>
-    <p>{{post.content}}</p>
-    <p>Last modified : {{new Date(post.date).toDateString()}}</p>
+        <h1 class="text-center">{{post.title}}</h1>
+        <v-img max-height="200" max-width="250" :src="post.imageUrl"></v-img>
+        <p>{{post.content}}</p>
+        <p>Last modified : {{new Date(post.date).toDateString()}}</p>
     </v-container>
     <v-container>
         <v-row>
@@ -16,20 +16,22 @@
     <v-container>
         <v-row justify="space-around">
             <router-link :to="{name: 'postUpdate'}">
-                <v-btn v-if="auth" tile color="success"><v-icon left>mdi-pencil</v-icon>EDIT</v-btn>
+                <v-btn v-if="auth" tile color="success">
+                    <v-icon left>mdi-pencil</v-icon>
+                    EDIT
+                </v-btn>
             </router-link>
             <v-btn v-if="auth" @click.stop="deletePost()" tile color="error">DELETE</v-btn>
             <router-link :to="{name: 'home'}">
-            <v-btn tile >GO BACK</v-btn>
+                <v-btn tile>GO BACK</v-btn>
             </router-link>
         </v-row>
-            </v-container>
+    </v-container>
 </template>
 
 <script setup lang="ts">
-    import {onMounted, ref } from "vue"
-    import {useRoute, useRouter } from "vue-router"
-
+    import {onMounted, ref} from "vue"
+    import {useRoute, useRouter} from "vue-router"
 
     const route = useRoute()
     const router = useRouter()
@@ -42,15 +44,15 @@
     const id = route.params.id
     const serverUrl = `http://localhost:8080/api/post/${id}`
 
-    const callFetch = (url: any, options: any, cb : any) => {
+    const callFetch = (url: any, options: any, cb: any) => {
         return fetch(url, options)
-        .then(res => {
-            if(res.ok) {
-                return res.json()
-            }
-        })
-        .then(data => cb(data))
-        .catch(err => console.log(err.message))
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                }
+            })
+            .then(data => cb(data))
+            .catch(err => console.log(err.message))
     }
 
     const getOptions = {
@@ -64,19 +66,19 @@
     const getData = () => {
         callFetch(serverUrl, getOptions, (data) => {
             post.value = data
-            if(data.usersLiked.includes(parsedStorage.userId)) {
+            if (data.usersLiked.includes(parsedStorage.userId)) {
                 like.value = 1
             }
-            if(data.usersDisliked.includes(parsedStorage.userId)) {
+            if (data.usersDisliked.includes(parsedStorage.userId)) {
                 like.value = -1
             }
-            if(data.userId === parsedStorage.userId || parsedStorage.role === "Admin") {
+            if (data.userId === parsedStorage.userId || parsedStorage.role === "Admin") {
                 auth.value = true
             }
         })
     }
 
-    onMounted(()=> {
+    onMounted(() => {
         getData();
     })
 
@@ -126,7 +128,7 @@
         }
 
         callFetch(`${serverUrl}/like`, likeOptions, () => {
-        getData()
+            getData()
         })
     }
 

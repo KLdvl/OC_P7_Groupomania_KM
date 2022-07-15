@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <h1 class="text-center">Modify your post</h1>
-        <v-form @submit="onSubmit" enctype="multipart/form-data">
+        <v-form @submit="onSubmit">
             <div class="form-row">
                 <v-text-field
                         v-model="title"
