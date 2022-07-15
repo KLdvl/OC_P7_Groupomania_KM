@@ -1,5 +1,5 @@
 <template>
-    <PostPage />
+    <PostPage/>
 </template>
 
 <script setup lang="ts">

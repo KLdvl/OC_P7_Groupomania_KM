@@ -20,12 +20,12 @@
 
         <v-card-actions>
             <router-link :to="{name: 'post', params: {id: post._id}}">
-            <v-btn
-                    color="secondary"
-                    text
-            >
-                Explore
-            </v-btn>
+                <v-btn
+                        color="secondary"
+                        text
+                >
+                    Explore
+                </v-btn>
             </router-link>
 
             <v-spacer></v-spacer>
@@ -56,21 +56,22 @@
 
     const posts = ref([])
     const show = ref(false)
-    const selectedIndex= ref(null)
+    const selectedIndex = ref(-1)
 
-    function showContent(index: any) {
-        if(selectedIndex.value === null || selectedIndex.value !== index) {
+
+    function showContent(index: number) {
+        if (selectedIndex.value === -1 || selectedIndex.value !== index) {
             selectedIndex.value = index
             show.value = true
         } else {
-            selectedIndex.value = null
+            selectedIndex.value = -1
             show.value = false
         }
     }
 
     const serverUrl = "http://localhost:8080/api/post/"
     const parsedStorage = JSON.parse(localStorage.user)
-    const requestOptions : any = {
+    const requestOptions: { method: string, mode: 'cors', headers: { Authorization: string } } = {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -81,11 +82,11 @@
     onMounted(() => {
         fetch(serverUrl, requestOptions)
             .then(res => {
-                if(res.ok) {
+                if (res.ok) {
                     return res.json()
                 }
             })
             .then(data => posts.value = data)
             .catch(err => console.log(err.message))
     })
-    </script>
+</script>

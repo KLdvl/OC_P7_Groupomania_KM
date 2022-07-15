@@ -15,7 +15,7 @@
                         placeholder="Enter title of your post"
                         color="primary"
                         :error-messages="titleError"
-                    >
+                >
                 </v-text-field>
                 <v-textarea
                         v-model="content"
@@ -60,11 +60,11 @@
 </template>
 
 <script setup>
-    import { useRouter } from "vue-router"
-    import { useField, useForm } from 'vee-validate';
+    import {useRouter} from "vue-router"
+    import {useField, useForm} from 'vee-validate';
     import * as yup from 'yup';
 
-    const { handleSubmit } = useForm();
+    const {handleSubmit} = useForm();
     const router = useRouter()
     const serverUrl = "http://localhost:8080/api/post/"
     const parsedStorage = JSON.parse(localStorage.user)
@@ -86,32 +86,32 @@
             body: formData
         })
             .then(res => {
-                if(res.status === 201) {
+                if (res.status === 201) {
                     router.push({name: 'home'})
                 }
             })
             .catch(err => console.log(err.message))
     })
 
-            const { value: title, errorMessage: titleError } = useField('title',
-                yup.string()
-                .nullable()
-                .required("You must enter a title")
-                .min(3, "Title must have a minimum of 3 characters")
-                .max(30, "Title must have a maximum of 30 characters"))
+    const {value: title, errorMessage: titleError} = useField('title',
+        yup.string()
+            .nullable()
+            .required("You must enter a title")
+            .min(3, "Title must have a minimum of 3 characters")
+            .max(30, "Title must have a maximum of 30 characters"))
 
-            const { value: content, errorMessage: contentError } = useField('content',
-            yup.string()
-                .nullable()
-                .required("You must write a content")
-                .min(5, "Content must have a minimum of 5 characters")
-                .max(3000, "Content must have a minimum of 3000 characters")
-            )
+    const {value: content, errorMessage: contentError} = useField('content',
+        yup.string()
+            .nullable()
+            .required("You must write a content")
+            .min(5, "Content must have a minimum of 5 characters")
+            .max(3000, "Content must have a minimum of 3000 characters")
+    )
 
-            const { value: image, errorMessage: imageError } = useField('image',
-            yup.mixed()
-                .required("File is required")
-            )
+    const {value: image, errorMessage: imageError} = useField('image',
+        yup.mixed()
+            .required("File is required")
+    )
 
 </script>
 

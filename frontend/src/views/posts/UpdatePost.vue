@@ -60,9 +60,9 @@
 </template>
 
 <script setup>
-    import { onMounted } from 'vue'
-    import { useRouter, useRoute } from "vue-router"
-    import { useField, useForm } from 'vee-validate';
+    import {onMounted} from 'vue'
+    import {useRouter, useRoute} from "vue-router"
+    import {useField, useForm} from 'vee-validate';
     import * as yup from 'yup';
 
     onMounted(() => {
@@ -73,15 +73,15 @@
                 Authorization: `token ${parsedStorage.token}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            title.value = data.title
-            content.value = data.content
-        })
-        .catch(err => console.log(err.message))
+            .then(res => res.json())
+            .then(data => {
+                title.value = data.title
+                content.value = data.content
+            })
+            .catch(err => console.log(err.message))
     })
 
-    const { handleSubmit } = useForm();
+    const {handleSubmit} = useForm();
     const router = useRouter()
     const route = useRoute()
     const serverUrl = "http://localhost:8080/api/post/"
@@ -93,7 +93,7 @@
         const formData = new FormData;
         formData.append('title', values.title)
         formData.append('content', values.content)
-        if(values.image) {
+        if (values.image) {
             formData.append('image', values.image[0])
         }
         formData.append('userId', values.userId)
@@ -107,21 +107,21 @@
             body: formData
         })
             .then(res => {
-                if(res.status === 200) {
+                if (res.status === 200) {
                     router.push({name: 'home'})
                 }
             })
             .catch(err => console.log(err.message))
     })
 
-    const { value: title, errorMessage: titleError } = useField('title',
+    const {value: title, errorMessage: titleError} = useField('title',
         yup.string()
             .nullable()
             .required("You must enter a title")
             .min(3, "Title must have a minimum of 3 characters")
             .max(30, "Title must have a maximum of 30 characters"))
 
-    const { value: content, errorMessage: contentError } = useField('content',
+    const {value: content, errorMessage: contentError} = useField('content',
         yup.string()
             .nullable()
             .required("You must write a content")
@@ -129,7 +129,7 @@
             .max(3000, "Content must have a minimum of 3000 characters")
     )
 
-    const { value: image, errorMessage: imageError } = useField('image',
+    const {value: image, errorMessage: imageError} = useField('image',
         yup.mixed()
     )
 </script>
