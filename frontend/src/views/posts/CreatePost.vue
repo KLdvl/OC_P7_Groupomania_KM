@@ -41,13 +41,15 @@
                         clearable="true"
                         :error-messages="imageError"
                         type="file"
+                        @change="preview()"
                 >
                 </v-file-input>
+                <v-img v-if="url" :src="url"></v-img>
                 <v-row class="form-group">
                     <v-btn type="submit" color="success">
                         Submit Post
                     </v-btn>
-                    <v-btn type="reset" color="error">
+                    <v-btn @click="resetForm()" color="error">
                         Reset Form
                     </v-btn>
                     <router-link :to="{name: 'home'}">
@@ -63,11 +65,15 @@
     import {useRouter} from "vue-router"
     import {useField, useForm} from 'vee-validate';
     import * as yup from 'yup';
+    import { ref } from 'vue'
 
-    const {handleSubmit} = useForm();
+    const { handleSubmit, resetForm } = useForm();
     const router = useRouter()
     const serverUrl = "http://localhost:8080/api/post/"
     const parsedStorage = JSON.parse(localStorage.user)
+    const url = ref(null)
+
+
 
     const onSubmit = handleSubmit(values => {
         values.userId = parsedStorage.userId
@@ -112,6 +118,19 @@
         yup.mixed()
             .required("File is required")
     )
+
+    const preview = function() {
+        const file = image.value[0];
+        url.value = URL.createObjectURL(file);
+    }
+
+    resetForm({
+            values: {
+                title: '',
+                content: '',
+                image: ''
+            }
+        })
 
 </script>
 

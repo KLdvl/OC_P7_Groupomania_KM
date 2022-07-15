@@ -47,7 +47,7 @@
                     <v-btn type="submit" color="success">
                         Update Post
                     </v-btn>
-                    <v-btn type="reset" color="error">
+                    <v-btn @click="resetForm()" color="error">
                         Reset Form
                     </v-btn>
                     <router-link :to="{name: 'home'}">
@@ -81,12 +81,20 @@
             .catch(err => console.error(err.message))
     })
 
-    const {handleSubmit} = useForm();
+    const { handleSubmit, resetForm } = useForm();
     const router = useRouter()
     const route = useRoute()
     const serverUrl = "http://localhost:8080/api/post/"
     const id = route.params.id
     const parsedStorage = JSON.parse(localStorage.user)
+
+    resetForm({
+        values: {
+            title:'',
+            content: '',
+            image: ''
+        }
+    })
 
     const onSubmit = handleSubmit(values => {
         values.userId = parsedStorage.userId
