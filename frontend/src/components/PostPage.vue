@@ -44,7 +44,11 @@
     const id = route.params.id
     const serverUrl = `http://localhost:8080/api/post/${id}`
 
-    const callFetch = (url: string, options: { method: string, mode: 'cors', headers: { Authorization: string } }, cb: void) => {
+    interface Callback {
+        (message: string): void
+    }
+
+    const callFetch = (url: string, options: { method: string, mode: 'cors', headers: { Authorization: string } }, cb: Callback) => {
         return fetch(url, options)
             .then(res => {
                 if (res.ok) {
@@ -52,7 +56,7 @@
                 }
             })
             .then(data => cb(data))
-            .catch(err => console.log(err.message))
+            .catch(err => console.error(err.message))
     }
 
     const getOptions: { method: string, mode: 'cors', headers: { Authorization: string } } = {

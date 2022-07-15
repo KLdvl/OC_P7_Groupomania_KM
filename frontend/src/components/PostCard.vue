@@ -87,6 +87,6 @@
                 }
             })
             .then(data => posts.value = data)
-            .catch(err => console.log(err.message))
+            .catch(err => console.error(err.message))
     })
 </script>

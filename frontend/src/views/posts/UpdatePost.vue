@@ -78,7 +78,7 @@
                 title.value = data.title
                 content.value = data.content
             })
-            .catch(err => console.log(err.message))
+            .catch(err => console.error(err.message))
     })
 
     const {handleSubmit} = useForm();
@@ -111,7 +111,7 @@
                     router.push({name: 'home'})
                 }
             })
-            .catch(err => console.log(err.message))
+            .catch(err => console.error(err.message))
     })
 
     const {value: title, errorMessage: titleError} = useField('title',
