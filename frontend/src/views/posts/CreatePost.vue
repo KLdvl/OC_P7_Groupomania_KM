@@ -31,6 +31,7 @@
                         :error-messages="contentError"
                 >
                 </v-textarea>
+                <v-container class="d-flex">
                 <v-file-input
                         chips
                         v-model="image"
@@ -45,6 +46,7 @@
                 >
                 </v-file-input>
                 <v-img v-if="url" :src="url"></v-img>
+                </v-container>
                 <v-row class="form-group">
                     <v-btn type="submit" color="success">
                         Submit Post

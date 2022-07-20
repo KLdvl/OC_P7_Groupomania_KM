@@ -1,49 +1,57 @@
 <template>
-    <div class="login">
-        <h1 class="text-center text-tertiary">Please enter E-mail and password to log in</h1>
-        <v-form @submit="onSubmit" class="add-form">
-            <v-container>
-                <v-row>
-                    <v-col cols="12" sm="6" md="3">
-                        <v-text-field
-                                class="form-control"
-                                color="primary"
-                                name="email"
-                                v-model="email"
-                                type="email"
-                                label="E-mail"
-                                variant="solo"
-                                placeholder="Enter your e-mail address"
-                                :error-messages="emailError"
-                        >
-                        </v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row>
-                    <v-col cols="12" sm="6" md="3">
-                        <v-text-field
-                                color="primary"
-                                v-model="password"
-                                type="password"
-                                label="Password"
-                                variant="solo"
-                                placeholder="Enter your password"
-                                name="password"
-                                :error-messages="passwordError"
-                        >
-                        </v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row>
-                    <v-col cols="12" sm="6" md="3">
-                        <v-btn type="submit" append>
-                            Log In
-                            <v-icon icon="mdi-login"></v-icon>
-                        </v-btn>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-form>
+    <div class="fill-height">
+        <v-container>
+            <v-form @submit="onSubmit" class="add-form">
+                <v-container class="border rounded-lg">
+                    <h1 class="text-center text-tertiary mb-2">Please enter E-mail and password to log in</h1>
+                    <v-divider/>
+                    <div class="d-flex">
+                        <div class="back-image"></div>
+                        <v-container class="back-form">
+                            <v-row class="d-flex justify-center">
+                                <v-col cols="12">
+                                    <v-text-field
+                                            class="form-control email"
+                                            color="primary"
+                                            name="email"
+                                            v-model="email"
+                                            type="email"
+                                            label="E-mail"
+                                            variant="solo"
+                                            placeholder="Enter your e-mail address"
+                                            :error-messages="emailError"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-text-field
+                                            color="primary"
+                                            v-model="password"
+                                            type="password"
+                                            label="Password"
+                                            variant="solo"
+                                            placeholder="Enter your password"
+                                            name="password"
+                                            :error-messages="passwordError"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12" sm="8" md="8">
+                                    <v-btn type="submit" append>
+                                        Log In
+                                        <v-icon icon="mdi-login"></v-icon>
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </div>
+                </v-container>
+            </v-form>
+        </v-container>
     </div>
 </template>
 
@@ -53,6 +61,7 @@
     import {useRouter} from "vue-router"
     import {useField, useForm} from "vee-validate";
     import * as yup from 'yup'
+    import '../../assets/styles/authForm.scss'
 
     // Creating router variables
     const router = useRouter()
@@ -66,7 +75,7 @@
         formData.append('password', values.password)
 
         const serverUrl = "http://localhost:8080/api/auth/login"
-        const requestOptions: {method: string, mode: 'cors', headers: {"Content-Type": string}, body: string} = {
+        const requestOptions: { method: string, mode: 'cors', headers: { "Content-Type": string }, body: string } = {
             method: "POST",
             mode: "cors",
             headers: {"Content-Type": "application/json"},
