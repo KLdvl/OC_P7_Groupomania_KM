@@ -31,6 +31,8 @@
                         :error-messages="contentError"
                 >
                 </v-textarea>
+                <v-row class="d-flex">
+                    <v-col cols="8">
                 <v-file-input
                         chips
                         v-model="image"
@@ -41,8 +43,14 @@
                         clearable="true"
                         :error-messages="imageError"
                         type="file"
+                        @change="preview()"
                 >
                 </v-file-input>
+                    </v-col>
+                    <v-col cols="4">
+                        <v-img v-if="url" :src="url"></v-img>
+                    </v-col>
+                </v-row>
                 <v-row class="form-group">
                     <v-btn type="submit" color="success">
                         Update Post
@@ -60,7 +68,7 @@
 </template>
 
 <script setup>
-    import {onMounted} from 'vue'
+    import {onMounted, ref} from 'vue'
     import {useRouter, useRoute} from "vue-router"
     import {useField, useForm} from 'vee-validate';
     import * as yup from 'yup';
@@ -87,6 +95,12 @@
     const serverUrl = "http://localhost:8080/api/post/"
     const id = route.params.id
     const parsedStorage = JSON.parse(localStorage.user)
+    const url = ref(null)
+
+    const preview = function() {
+        const file = image.value[0];
+        url.value = URL.createObjectURL(file);
+    }
 
     resetForm({
         values: {
