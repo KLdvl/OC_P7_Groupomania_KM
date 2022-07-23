@@ -52,15 +52,21 @@
                     </v-col>
                 </v-row>
                 <v-row class="form-group">
-                    <v-btn type="submit" color="success">
-                        Update Post
-                    </v-btn>
-                    <v-btn @click="resetForm()" color="error">
-                        Reset Form
-                    </v-btn>
-                    <router-link :to="{name: 'home'}">
-                        <v-btn tile>Go Back</v-btn>
-                    </router-link>
+                    <v-col cols="12" lg="3">
+                        <v-btn type="submit" color="success">
+                            Update Post
+                        </v-btn>
+                    </v-col>
+                    <v-col cols="12" lg="3">
+                        <v-btn @click="reset()" color="error">
+                            Reset Form
+                        </v-btn>
+                    </v-col>
+                    <v-col cols="12" lg="3">
+                        <router-link :to="{name: 'home'}">
+                            <v-btn tile>Go Back</v-btn>
+                        </router-link>
+                    </v-col>
                 </v-row>
             </div>
         </v-form>
@@ -102,13 +108,16 @@
         url.value = URL.createObjectURL(file);
     }
 
-    resetForm({
-        values: {
-            title:'',
-            content: '',
-            image: ''
-        }
-    })
+    const reset = () => {
+        resetForm({
+            values: {
+                title: '',
+                content: '',
+                image: ''
+            }
+        })
+        url.value = null
+    }
 
     const onSubmit = handleSubmit(values => {
         values.userId = parsedStorage.userId
