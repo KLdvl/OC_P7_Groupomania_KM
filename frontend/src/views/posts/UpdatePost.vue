@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <h1 class="text-center">Modify your post</h1>
+        <h1 class="text-center text-primary border-md rounded-shaped">Modify your post</h1>
         <v-form @submit="onSubmit">
             <div class="form-row">
                 <v-text-field
@@ -31,7 +31,7 @@
                         :error-messages="contentError"
                 >
                 </v-textarea>
-                <v-row class="d-flex">
+                <v-row class="d-flex align-center">
                     <v-col cols="8">
                 <v-file-input
                         chips
@@ -44,11 +44,14 @@
                         :error-messages="imageError"
                         type="file"
                         @change="preview()"
+                        @click:clear="clearPreview()"
                 >
                 </v-file-input>
                     </v-col>
                     <v-col cols="4">
-                        <v-img v-if="url" :src="url"></v-img>
+                        <v-card>
+                        <v-img height="250" v-if="url" :src="url"></v-img>
+                        </v-card>
                     </v-col>
                 </v-row>
                 <v-row class="form-group">
@@ -91,6 +94,7 @@
             .then(data => {
                 title.value = data.title
                 content.value = data.content
+                url.value = data.imageUrl
             })
             .catch(err => console.error(err.message))
     })
@@ -106,6 +110,10 @@
     const preview = function() {
         const file = image.value[0];
         url.value = URL.createObjectURL(file);
+    }
+
+    const clearPreview = () => {
+        url.value = null
     }
 
     const reset = () => {

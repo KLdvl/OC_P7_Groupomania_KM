@@ -1,17 +1,28 @@
 <template>
     <v-container>
-        <h1 class="text-center">{{post.title}}</h1>
-        <v-img max-height="200" max-width="250" :src="post.imageUrl"></v-img>
-        <p>{{post.content}}</p>
-        <p>Last modified : {{new Date(post.date).toDateString()}}</p>
-    </v-container>
-    <v-container>
-        <v-row>
-            <v-btn @click.stop="likePost()">LikeBtn</v-btn>
-            <div class="mr-5">{{post.likes}} LIKES</div>
-            <v-btn @click.stop="dislikePost()">DislikeBtn</v-btn>
-            <div>{{post.dislikes}} DISLIKES</div>
-        </v-row>
+        <h1 class="text-center text-primary border-md rounded-shaped">{{post.title}}</h1>
+        <v-container>
+            <v-row class="d-flex align-center">
+                <v-col cols="12" md="3">
+                    <v-card class="d-flex justify-center">
+                    <v-img max-height="200" max-width="250" :src="post.imageUrl"></v-img>
+                    </v-card>
+                </v-col>
+                <v-col cols="12" md="9">
+                    <v-col cols="12" md="6" class="d-flex align-center">
+                        <v-btn class="text-success" @click.stop="likePost()">Likes</v-btn>
+                        <div class="ml-5">Total likes : {{post.likes}}</div>
+                    </v-col>
+                    <v-col cols="12" md="6" class="d-flex align-center">
+                        <v-btn class="text-error" @click.stop="dislikePost()">Dislikes</v-btn>
+                        <div class="ml-5">Total dislikes : {{post.dislikes}}</div>
+                    </v-col>
+                </v-col>
+            </v-row>
+        </v-container>
+        <p style="white-space: pre-line">{{post.content}}</p>
+        <v-divider></v-divider>
+        <p class="mt-4">Last modified : {{new Date(post.date).toDateString()}}</p>
     </v-container>
     <v-container>
         <v-row justify="space-around">
@@ -23,7 +34,7 @@
             </router-link>
             <v-btn v-if="auth" @click.stop="deletePost()" tile color="error">DELETE</v-btn>
             <router-link :to="{name: 'home'}">
-                <v-btn tile>GO BACK</v-btn>
+                <v-btn class="bg-tertiary" tile>GO BACK</v-btn>
             </router-link>
         </v-row>
     </v-container>
