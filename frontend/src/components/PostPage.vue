@@ -5,7 +5,7 @@
             <v-row class="d-flex align-center">
                 <v-col cols="12" md="3">
                     <v-card class="d-flex justify-center">
-                    <v-img max-height="200" max-width="250" :src="post.imageUrl"></v-img>
+                        <v-img max-height="200" max-width="250" :src="post.imageUrl"></v-img>
                     </v-card>
                 </v-col>
                 <v-col cols="12" md="9">
