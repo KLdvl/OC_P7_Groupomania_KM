@@ -22,3 +22,14 @@
 .back-form {
   width: 50%;
 }
+
+@media screen and (max-width: 600px) {
+  .back-image {
+    width: 100%;
+    height: 150px;
+  }
+  .back-form {
+    width: 100%;
+  }
+}
+

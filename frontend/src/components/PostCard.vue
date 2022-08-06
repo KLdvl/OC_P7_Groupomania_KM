@@ -46,19 +46,6 @@
     import {onMounted, ref} from "vue"
 
     const posts = ref([])
-    const show = ref(false)
-    const selectedIndex = ref(-1)
-
-
-    function showContent(index: number) {
-        if (selectedIndex.value === -1 || selectedIndex.value !== index) {
-            selectedIndex.value = index
-            show.value = true
-        } else {
-            selectedIndex.value = -1
-            show.value = false
-        }
-    }
 
     const serverUrl = "http://localhost:8080/api/post/"
     const parsedStorage = JSON.parse(localStorage.user)

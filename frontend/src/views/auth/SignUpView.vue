@@ -5,7 +5,7 @@
                 <v-container class="border rounded-lg">
                     <h1 class="text-center text-tertiary mb-2">Please enter E-mail and password to sign up</h1>
                     <v-divider/>
-                    <div class="d-flex">
+                    <div class="d-flex flex-column flex-sm-row">
                         <div class="back-image"></div>
                         <v-container class="back-form">
                             <v-row class="d-flex justify-center">
