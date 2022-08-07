@@ -13,7 +13,8 @@ exports.updatePost = async (req, res) => {
     const post = await Post.findById({_id: req.params.id})
 
 // destructuring req.body
-    const {title, content, userId} = req.body;
+    const {title, content} = req.body;
+    const {userId} = req.auth
 
     if(userId !== post.userId && user.role !== "Admin") {
       return res.status(401).json({message: "requête non autorisée"})
@@ -37,8 +38,7 @@ exports.updatePost = async (req, res) => {
       }
       : {
         title: title,
-        content: content,
-        userId: userId,
+        content: content
       };
 
 // Update post data or image

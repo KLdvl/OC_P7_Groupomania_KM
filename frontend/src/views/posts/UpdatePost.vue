@@ -128,14 +128,12 @@
     }
 
     const onSubmit = handleSubmit(values => {
-        values.userId = parsedStorage.userId
         const formData = new FormData;
         formData.append('title', values.title)
         formData.append('content', values.content)
         if (values.image) {
             formData.append('image', values.image[0])
         }
-        formData.append('userId', values.userId)
 
         fetch(`${serverUrl}${id}`, {
             method: 'PUT',

@@ -125,6 +125,7 @@ git clone https://github.com/KLdvl/OC_P7_Groupomania_KM.git
 A partir du répertoire source:
 ```terminal
 cd Backend
+mkdir images
 npm install
 npm start
 ```
