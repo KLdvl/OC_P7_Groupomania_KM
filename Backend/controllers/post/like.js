@@ -10,7 +10,7 @@ exports.likePost = async (req, res) => {
         switch(like) {
             // If like === 1
             case 1:
-                if(!post.usersLiked.includes(userId)) {
+                if(!post.usersLiked.includes(userId) && !post.usersDisliked.includes(userId)) {
                     await Post.findByIdAndUpdate({_id: req.params.id}, {$inc: {likes: +1}, $push: {usersLiked: userId}})
                     res.status(200).json(post)
                 }
@@ -28,7 +28,7 @@ exports.likePost = async (req, res) => {
                 break;
             // If like === -1
             case -1:
-                if(!post.usersDisliked.includes(userId)) {
+                if(!post.usersDisliked.includes(userId) && !post.usersLiked.includes(userId)) {
                     await Post.findByIdAndUpdate({_id: req.params.id}, {$inc: {dislikes: +1}, $push: {usersDisliked: userId}})
                     res.status(200).json(post)
                 }
