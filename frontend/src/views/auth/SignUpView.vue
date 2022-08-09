@@ -45,7 +45,9 @@
                                         Sign Up
                                         <v-icon icon="mdi-send"></v-icon>
                                     </v-btn>
+
                                 </v-col>
+                                <v-row v-if="userError">{{userError}}</v-row>
                             </v-row>
                         </v-container>
                     </div>
@@ -62,11 +64,13 @@
     import {useField, useForm} from "vee-validate"
     import * as yup from 'yup'
     import '../../assets/styles/authForm.scss'
+    import {ref} from 'vue'
 
     // Creating environment variables
     const router = useRouter()
     const store = useStore()
     const {handleSubmit} = useForm()
+    const userError = ref("")
 
     // Creating function for signing in
     const onSubmit = handleSubmit(values => {
@@ -92,6 +96,9 @@
                 }
             })
             .then(data => {
+                if(!data) {
+                    return userError.value = 'User already exists !'
+                }
                 localStorage.setItem('user', JSON.stringify(data))
                 login()
                 router.push({name: 'home'})

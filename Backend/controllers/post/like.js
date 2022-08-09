@@ -10,25 +10,25 @@ exports.likePost = async (req, res) => {
         switch(like) {
             // If like === 1
             case 1:
-                if(!post.usersLiked.includes(userId) && !post.usersDisliked.includes(userId)) {
+                if(!post.usersLiked.includes(userId) && !post.usersDisliked.includes(userId) && req.auth !== userId) {
                     await Post.findByIdAndUpdate({_id: req.params.id}, {$inc: {likes: +1}, $push: {usersLiked: userId}})
                     res.status(200).json(post)
                 }
                 break;
             // If like === 0
             case 0:
-                if(post.usersLiked.includes(userId)) {
+                if(post.usersLiked.includes(userId) && req.auth !== userId) {
                     await Post.findByIdAndUpdate({_id: req.params.id}, {$inc: {likes: -1}, $pull: {usersLiked: userId}})
                     res.status(200).json(post)
                 }
-                if(post.usersDisliked.includes(userId)) {
+                if(post.usersDisliked.includes(userId) && req.auth !== userId) {
                     await Post.findByIdAndUpdate({_id: req.params.id}, {$inc: {dislikes: -1}, $pull: {usersDisliked: userId}})
                     res.status(200).json(post)
                 }
                 break;
             // If like === -1
             case -1:
-                if(!post.usersDisliked.includes(userId) && !post.usersLiked.includes(userId)) {
+                if(!post.usersDisliked.includes(userId) && !post.usersLiked.includes(userId) && req.auth !== userId) {
                     await Post.findByIdAndUpdate({_id: req.params.id}, {$inc: {dislikes: +1}, $push: {usersDisliked: userId}})
                     res.status(200).json(post)
                 }
